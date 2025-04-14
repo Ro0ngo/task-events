@@ -44,17 +44,15 @@ export function createLink() {
     link.href = 'https://tensor.ru/';
     link.textContent = 'tensor';
 
-    link.addEventListener(
-        'click',
-        function (e) {
-            if (!this.dataset.clicked) {
-                e.preventDefault();
-                this.textContent += ` ${this.href}`;
-                this.dataset.clicked = 'true';
-            }
-        },
-        { once: true },
-    );
+    let isFirstClick = true;
+
+    link.addEventListener('click', function (e) {
+        if (isFirstClick) {
+            e.preventDefault();
+            this.textContent += ` ${this.href}`;
+            isFirstClick = false;
+        }
+    });
 
     document.body.appendChild(link);
 }
